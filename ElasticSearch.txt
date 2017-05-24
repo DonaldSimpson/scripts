@@ -1,0 +1,8 @@
+# quick note of the system tweaks needed to run ElasticSearch on RHEL7 in a Docker container
+
+# create new file
+		/etc/sysctl.d/98-efk-mem.conf
+# add these contents:
+# mem changes required for Elasticsearch
+vm.max_map_count=262144
+vm.swappiness=0
