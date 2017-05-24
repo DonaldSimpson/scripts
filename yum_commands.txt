@@ -1,0 +1,2 @@
+# downgrade docker-latest on RHEL
+yum downgrade docker-latest docker-client-latest
