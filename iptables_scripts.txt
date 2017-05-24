@@ -1,0 +1,11 @@
+
+## block for external traffic:
+iptables -A OUTPUT -p TCP -d 10.0.0.0/8 -j ACCEPT
+iptables -A OUTPUT -p TCP -d 192.168.0.0/16 -j ACCEPT
+iptables -A OUTPUT -p TCP -d 172.16.0.0/12 -j ACCEPT
+iptables -A OUTPUT -p TCP -j REJECT --reject-with tcp-reset
+
+# docker networking
+iptables -I INPUT -i docker0 -j ACCEPT 
+
+
