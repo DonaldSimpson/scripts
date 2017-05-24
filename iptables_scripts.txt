@@ -8,4 +8,7 @@ iptables -A OUTPUT -p TCP -j REJECT --reject-with tcp-reset
 # docker networking
 iptables -I INPUT -i docker0 -j ACCEPT 
 
+# add port for node exporter example:
+firewall-cmd --add-port 9100/tcp
+firewall-cmd --add-port 9100/tcp --permanent
 
