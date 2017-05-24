@@ -1,0 +1,4 @@
+# use the Jenkins XML API to query all installed plugins:versions...
+curl -o plugins.xml https://(yourjenkinshost):8080/pluginManager/api/xml?depth=1&xpath=/*/*/shortName|/*/*/version&wrapper=plugins
+# then convert that to the required format, SOMETHING LIKE so (I think I stripped the headers off first?:
+cat plugins.xml | grep -v plugins | grep -v '\?' | awk -F\> '{print $2}' | awk -F\< '{print $1}' | paste -s -d' \n' > parsed.txt ; tr ' ' ':' < parsed.txt > list.txt
