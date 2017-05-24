@@ -1,0 +1,3 @@
+## perl base64 encode 
+perl -e 'use MIME::Base64; print encode_base64("12345");'
+
