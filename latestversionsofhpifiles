@@ -1,0 +1,28 @@
+# this is a bit weird.
+
+# aim at a local clone of the jenkins update centre
+# this script will generate a list of the latest version of each file name
+# then copy each one to a new directory
+
+# find all hpi files:
+find . -type f -name *.hpi > allfiles.txt
+
+# for each hpi file, add the basename(s) to a new list
+> basenames.txt
+while read FILE; do
+  echo File is $FILE
+  echo $(basename $FILE) >> basenames.txt
+done < allfiles.txt
+
+# sort & dedupe
+sort -u basenames.txt > basenamesunique.txt
+
+# get the name of each plugin - between the last / and the .hpi
+# for each one, grep the list and do a 'find the latest'
+# copy that latest version to the new location
+while read NAMES; do
+  echo $NAMES
+  find . -type f -name $NAMES
+  cp `find . -type f -name $NAMES | xargs ls -rt | tail -1` /donkeep
+done < basenamesunique.txt
+
