@@ -1,0 +1,25 @@
+ssh:
+        docker exec -it jenkins bash
+
+stop:
+        docker kill jenkins
+
+rm:
+        docker rm jenkins
+
+start:
+        docker run -d -p 8080:8080 --name=jenkins donaldsimpson/dockerjenkins
+
+restart: stop rm start
+
+.ONESHELL:
+define check_container =
+        set -
+        if [ `docker ps --format {{.Names}} | grep jenkins` == 'jenkins' ]; then
+        echo "Jenkins Container RUNNING"
+        else
+        echo "Jenkins Container NOT running!"
+        fi
+endef
+
+test: ; @$(value check_container)
