@@ -1,18 +1,23 @@
-
+# default action - connect to the (hopefully running) jenkins container
 ssh:
         docker exec -it jenkins bash
 
+# kill it quietly
 stop:
         -@docker kill jenkins
 
+# rm it quietly - calling this directly may error
 rm:
-        -@docker rm jenkins
+        -@docker rm jenkins | :
 
+# clean up any existing container, start a new instance and check it's running
 start: stop rm startmeup test
 
+# used by start function
 startmeup:
         docker run -d -p 8080:8080 --name=jenkins donaldsimpson/dockerjenkins
 
+# shell script to verify if container is running/not
 .ONESHELL:
 define test_container =
         if [ `docker ps --format {{.Names}} | grep jenkins` == 'jenkins' ]; then
@@ -22,6 +27,8 @@ define test_container =
         fi
 endef
 
+# check container with above script
 test: ; @$(value test_container)
 
+# clean up & restart
 restart: stop rm start
