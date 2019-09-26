@@ -14,7 +14,7 @@ pipeline {
           steps {
             script {
               sh "echo This container is `hostname`"
-              sh 'Listing files in /tmp:'
+              sh 'echo Listing files in /tmp:'
               sh 'ls -al /tmp'
             }
           }
@@ -33,7 +33,7 @@ pipeline {
             docker { image 'node:7-alpine' }
           }
           steps {
-            sh "echo This container is `hostname`"            
+            sh "echo This container is `hostname`"
             sh 'node --version'
           }
         }
