@@ -14,7 +14,7 @@ pipeline {
           steps {
             script {
               sh "echo This container is `hostname`"
-              sh 'printenv'
+              sh 'Listing files in /tmp:'
               sh 'ls -al /tmp'
             }
           }
@@ -24,6 +24,7 @@ pipeline {
             docker { image 'maven:3-alpine' }
           }
           steps {
+            sh "echo This container is `hostname`"
             sh 'mvn --version'
           }
         }
@@ -32,6 +33,7 @@ pipeline {
             docker { image 'node:7-alpine' }
           }
           steps {
+            sh "echo This container is `hostname`"            
             sh 'node --version'
           }
         }
