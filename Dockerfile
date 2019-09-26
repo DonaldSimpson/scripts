@@ -8,4 +8,5 @@ RUN tar -xvzf /tmp/docker-ce.tgz --directory="/usr/local/bin" --strip-components
 RUN adduser -S -u $UID jenkins
 RUN addgroup -S -g $GID docker
 RUN addgroup jenkins docker
+RUN touch /tmp/mycontainer
 USER jenkins

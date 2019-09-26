@@ -16,6 +16,7 @@ pipeline {
               sh 'echo Hi'
               sh 'printenv'
               sh 'uname -a'
+              sh 'ls -al /tmp'
             }
           }
         }
