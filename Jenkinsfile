@@ -13,7 +13,7 @@ pipeline {
         stage('Local build') {
           steps {
             script {
-              sh 'echo Hi'
+              sh "echo This container is `hostname`"
               sh 'printenv'
               sh 'ls -al /tmp'
             }
