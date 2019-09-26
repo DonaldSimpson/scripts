@@ -1,19 +1,14 @@
 # use the Jenkins XML API to query all installed plugins:versions...
 curl -o plugins.xml https://(yourjenkinshost):8080/pluginManager/api/xml?depth=1&xpath=/*/*/shortName|/*/*/version&wrapper=plugins
-# then convert that to the required format, SOMETHING LIKE so (I think I stripped the headers off first?:
+
+# then convert that to the required format, SOMETHING LIKE so (I think I stripped the headers off first?):
 cat plugins.xml | grep -v plugins | grep -v '\?' | awk -F\> '{print $2}' | awk -F\< '{print $1}' | paste -s -d' \n' > parsed.txt ; tr ' ' ':' < parsed.txt > list.txt
 
-# old school backup plan for jenkins :-)
+# old skool backup plan for jenkins when all we had available was an SVN instance... cor blimey
 cd /applications/jenkins/build/
-
 find . -type f -name config.xml | xargs tar -rf JenkinsBackup_${BUILD_NUMBER}_`(date +%Y%m%d)`.tar
-
 cd wc_jenkinsbackups/jenkinsbackups
-
 mkdir JenkinsBackup_${BUILD_NUMBER}_`(date +%Y%m%d)`
-
 mv ../../JenkinsBackup_${BUILD_NUMBER}_`(date +%Y%m%d)`.tar JenkinsBackup_${BUILD_NUMBER}_`(date +%Y%m%d)`
-
-/opt/CollabNet_Subversion/bin/svn add JenkinsBackup_${BUILD_NUMBER}_`(date +%Y%m%d)`
-
-/opt/CollabNet_Subversion/bin/svn commit -m "Adding backup ${BUILD_NUMBER}" JenkinsBackup_${BUILD_NUMBER}_`(date +%Y%m%d)`
+svn add JenkinsBackup_${BUILD_NUMBER}_`(date +%Y%m%d)`
+svn commit -m "Adding backup ${BUILD_NUMBER}" JenkinsBackup_${BUILD_NUMBER}_`(date +%Y%m%d)`
