@@ -14,6 +14,7 @@ pipeline {
       steps {
         script {
           sh "echo This container is `hostname`"
+          sh 'docker inspect --format='{{.Config.Image}}' $HOSTNAME'
           sh 'echo Listing files in /tmp:'
           sh 'ls -al /tmp'
         }
@@ -25,6 +26,7 @@ pipeline {
       }
       steps {
         sh "echo This container is `hostname`"
+        sh 'docker inspect --format='{{.Config.Image}}' $HOSTNAME'
         sh 'mvn --version'
       }
     }
@@ -34,6 +36,7 @@ pipeline {
       }
       steps {
         sh "echo This container is `hostname`"
+        sh 'docker inspect --format='{{.Config.Image}}' $HOSTNAME'        
         sh 'node --version'
       }
     }
