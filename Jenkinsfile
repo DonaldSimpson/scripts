@@ -10,7 +10,7 @@ pipeline {
         parallelsAlwaysFailFast()
       }
       stages {
-        stage('Prep steps') {
+        stage('Local build') {
           steps {
             script {
               sh 'echo Hi'
@@ -19,7 +19,15 @@ pipeline {
             }
           }
         }
-        stage('Front-end') {
+        stage('Back-end example') {
+          agent {
+            docker { image 'maven:3-alpine' }
+          }
+          steps {
+            sh 'mvn --version'
+          }
+        }
+        stage('Front-end example') {
           agent {
             docker { image 'node:7-alpine' }
           }
