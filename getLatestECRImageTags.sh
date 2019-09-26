@@ -25,9 +25,9 @@ for image in `cat allrepos`; do
     echo "doTwistlock('$REG_ADDRESS/$image:$LATEST')" >> latest_images
   fi
 done
-  echo " "
-  echo "Done:"
-  echo "$COUNTER of $COUNT latest image tags found and added to 'latest_images'."
-  echo "$EMPTY of $COUNT repos have no tags."
-  echo " "
-  rm allrepos | :
+echo " "
+echo "Done:"
+echo "$COUNTER of $COUNT latest image tags found and added to 'latest_images'."
+echo "$EMPTY of $COUNT repos have no tags."
+echo " "
+rm allrepos | :
